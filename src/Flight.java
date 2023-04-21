@@ -76,10 +76,11 @@ public class Flight {
         Seats = seats;
     }
 
+    //اضافه کردن تعداد صندلی ها
     public void increaseSeats(){
         this.Seats++;
     }
-
+    //کاهش تعداد صندلی
     public void decreaseSeats(){
         this.Seats--;
     }

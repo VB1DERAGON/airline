@@ -56,6 +56,7 @@ public class Account {
 
 //-------------------------------------------------
 
+    //نمایش بلیط های رزرو شده
     public String showTicket(){
 
         String res = "";
@@ -72,6 +73,7 @@ public class Account {
         return "Unreserved ticket";
     }
 
+    //تابع کنسل بلیط
     public boolean cancellation(int index){
         if(index<0 && index>=lastIndex)
             return false;
@@ -87,6 +89,7 @@ public class Account {
         return true;
     }
 
+    //حذف بلیط در صورت حذف پرواز توسط ادمین
     public void removeTicket(Flight flight){
         for (int i = 0; i < lastIndex; i++) {
             if (tickets[i].getFlight().getFlightId().equals(flight.getFlightId()))
@@ -95,6 +98,7 @@ public class Account {
     }
 
     //------------------------------------------------------
+    //رزرو کردن بلیط
     public boolean reservation(Flight flight){
 
         if(flight.getSeats() > 0 && this.getPurse() >= flight.getPrice()){
