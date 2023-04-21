@@ -2,6 +2,7 @@ public class Ticket {
     private String ticketId;
     private Flight flight;
 
+    //نام گذاری رندوم
     public Ticket(Flight flight) {
         String alpha = "abcdefghijklmnopqrstuvwxyz";
         for (int i = 0; i < 6; i++) {
