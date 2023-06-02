@@ -76,7 +76,7 @@ public class Application {
     // ساخت حساب جدید
     public void signup() {
 
-        System.out.println("username and password must be at least six characters");
+        System.out.println("Username and password must be between six and fifteen characters");
 
         while (true) {
 
@@ -96,6 +96,11 @@ public class Application {
             //بررسی تعداد حروف
             if (name.length() < 6 || password.length() < 6) {
                 System.out.println("username and password must be at least six characters :)");
+                continue;
+            }
+
+            if (name.length() > 15 || password.length() >15) {
+                System.out.println("Username and password must be a maximum of fifteen characters :)");
                 continue;
             }
 
@@ -217,7 +222,7 @@ public class Application {
     public void changePassword() {
 
         boolean loop = true;
-        System.out.println("username and password must be at least six characters");
+        System.out.println("Username and password must be between six and fifteen characters");
 
         while (loop) {
             System.out.println("enter new password");
@@ -227,13 +232,13 @@ public class Application {
                 break;
             }
 
-            if (x.length() < 6) {
+            if (x.length() < 6 || x.length() > 15) {
 
-                System.out.println("username and password must be at least six characters :)");
+                System.out.println("Username and password must be between six and fifteen characters :)");
 
             } else {
 
-                loginUser.setPassword(x);
+                accounts.changePassword(x, loginUser.index);
                 loop = false;
             }
 
@@ -272,7 +277,11 @@ public class Application {
                 continue;
             }
 
-            boolean checkMoney = loginUser.reservation(flight);
+            boolean checkMoney = accounts.reservation(flight,loginUser);
+            if (checkMoney){
+                flight.setSeats(flight.getSeats()-1);
+                flights.updateFlight(flight,choose);
+            }
             if (!checkMoney){
 
                 System.err.println("Your money is not enough");
@@ -297,7 +306,7 @@ public class Application {
     //کنسل کردن بلیط
     public void cancel() {
         while(true) {
-            System.out.println(loginUser.showTicket());
+            booked_tickets();
             System.out.println("enter number of flight");
             int choose = input.nextInt();
 
@@ -307,7 +316,7 @@ public class Application {
             }
 
             choose--;
-            if (!loginUser.cancellation(choose)){
+            if (!accounts.cancellation(loginUser,choose)){
                 System.out.println("please enter correct number :)");
             }else {
                 break;
@@ -321,7 +330,7 @@ public class Application {
     //نمایش بلیط های رزرو شده
     public void booked_tickets() {
 
-        System.out.println(loginUser.showTicket());
+        accounts.showTicket(loginUser);
 
     }
 
@@ -332,7 +341,7 @@ public class Application {
         System.out.println("enter amount of money");
         int charge = input.nextInt();
 
-        loginUser.setPurse(loginUser.getPurse() + charge);
+        accounts.charge(loginUser.index,charge);
         System.out.println("amount your money"+loginUser.getPurse());
     }
 
@@ -468,6 +477,7 @@ public class Application {
             System.out.println("enter Seats");
             flight.setSeats(input.nextInt());
 
+            flights.updateFlight(flight,choose);
             loop = false;
         }
     }
@@ -489,6 +499,7 @@ public class Application {
             choose--;
 
             Flight flight = flights.getFlight(choose);
+            choose++;
             //بررسی عدد وارد شده
             if (!flights.removeFlight(choose)) {
                 System.out.println("please enter correct number :)");
@@ -504,8 +515,9 @@ public class Application {
     //گزینه schedule
     public void schedule() {
 
-        System.out.printf("   |%-10s|%-10s|%-15s|%-10s|%-5s|%-10s|%-10s|\n", "FlightId", "Origin","Destination", "Date", "Time", "Price", "Seats");
-        System.out.println(flights);
+        System.out.printf("   |%-10s|%-10s|%-15s|%-5s|%-5s|%-5s|%-5s|\n", "FlightId", "Origin","Destination", "Date", "Time", "Price", "Seats");
+        //System.out.println(flights);
+
         input.nextLine();
     }
 

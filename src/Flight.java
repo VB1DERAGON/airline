@@ -84,9 +84,9 @@ public class Flight {
     public void decreaseSeats(){
         this.Seats--;
     }
-    @Override
+   /* @Override
     public String toString() {
         //تو اینترنت دیدم
         return String.format("|%-10s|%-10s|%-15s|%-10s|%-5s|%-10d|%-10d|", FlightId, Origin, Destination, Date, Time, Price, Seats);
-    }
+    }*/
 }

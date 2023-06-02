@@ -1,6 +1,6 @@
 public class Ticket {
     private String ticketId;
-    private Flight flight;
+    private String flightId;
 
     //نام گذاری رندوم
     public Ticket(Flight flight) {
@@ -9,19 +9,27 @@ public class Ticket {
 
             this.ticketId += alpha.charAt((int) (Math.random()* alpha.length()));
         }
-        this.flight = flight;
+        this.flightId = flight.getFlightId();
+    }
+
+    public void setTicketId(String ticketId) {
+        this.ticketId = ticketId;
+    }
+
+    public void setFlightId(String flightId) {
+        this.flightId = flightId;
     }
 
     public String getTicketId() {
         return ticketId;
     }
 
-    public Flight getFlight() {
-        return flight;
+    public String getFlightId() {
+        return flightId;
     }
 
     @Override
     public String toString() {
-        return String.format("|%-10s%s", ticketId, flight);
+        return String.format("|%-10s%s", ticketId, flightId);
     }
 }

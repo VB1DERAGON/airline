@@ -1,8 +1,9 @@
 public class Account {
 
     //--------------------------------
-    private int lastIndex = 0;
-    Ticket[] tickets = new Ticket[20];
+    public int lastIndex = 0;
+    public Ticket[] tickets = new Ticket[10];
+    public int index;
     //--------------------------------
     private String name;
     private String password;
@@ -60,9 +61,7 @@ public class Account {
     public String showTicket(){
 
         String res = "";
-
         if(lastIndex > 0) {
-
             for (int i = 0; i < lastIndex; i++) {
                 res += "----------------------------------------------------------------------------------------------\n";
                 res += String.format("%-3d%s\n", i + 1, tickets[i]);
@@ -74,7 +73,7 @@ public class Account {
     }
 
     //تابع کنسل بلیط
-    public boolean cancellation(int index){
+    /*public boolean cancellation(int index){
         if(index<0 && index>=lastIndex)
             return false;
 
@@ -87,15 +86,15 @@ public class Account {
         lastIndex--;
         tickets[lastIndex] = null;
         return true;
-    }
+    }*/
 
     //حذف بلیط در صورت حذف پرواز توسط ادمین
-    public void removeTicket(Flight flight){
+    /*public void removeTicket(Flight flight){
         for (int i = 0; i < lastIndex; i++) {
-            if (tickets[i].getFlight().getFlightId().equals(flight.getFlightId()))
+            if (tickets[i].getFlightId().equals(flight.getFlightId()))
                 cancellation(i);
         }
-    }
+    }*/
 
     //------------------------------------------------------
     //رزرو کردن بلیط
