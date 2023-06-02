@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 public class Accounts {
     //private Account[] accounts = new Account[100];
+    public Account account = new Account();
     public RandomAccessFile accounts;
     public RandomAccessFile backUp;
     {
@@ -38,18 +39,17 @@ public class Accounts {
     //تشخیص وجود حساب
     public Account getByUsername(String username){
         try {
-            Account account = null;
             for (int i = 0; i < lastIndex; i++) {
                 accounts.seek(i*452);
                 account.index = accounts.readInt();
-                account.setName(readChar1(accounts));
+                account.setName(withoutSpace(readChar1(accounts)));
                 if (account.getName().equals(username)){
-                    account.setPassword(readChar1(accounts));
+                    account.setPassword(withoutSpace(readChar1(accounts)));
                     account.setPurse(accounts.readInt());
-                    for (int j = 0; j <= 10; j++) {
+                    /*for (int j = 0; j <= 10; j++) {
                         account.tickets[j].setTicketId(readChar1(accounts));
                         account.tickets[j].setFlightId(readChar1(accounts));
-                    }
+                    }*/
                     return account;
                 }
             }
@@ -167,5 +167,16 @@ public class Accounts {
             }
         }
         return str;
+    }
+    public String withoutSpace(String str){
+        char[] name = new char[10];
+        String space = "";
+        name = str.toCharArray();
+        for (int i = 0;i < 10;i++){
+            if (name[i] != ' '){
+                space += name[i];
+            }
+        }
+        return space;
     }
 }
